@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="true"
+       default-init-method="init">
+
+    <bean id="postConstructBean"
+          class="com.spring.gameloft.life_cycle.ProgrammerPostConstruct"
+          p:age="25"
+          p:name="Andrei"
+    />
+
+    <bean id="postConstructBean1"
+          class="com.spring.gameloft.life_cycle.ProgrammerPostConstruct"
+          p:name="Andrei"
+          p:age="26"
+    />
+
+    <bean id="postConstructBean2"
+          class="com.spring.gameloft.life_cycle.ProgrammerPostConstruct"
+          p:age="25"
+    />
+
+</beans>
+
