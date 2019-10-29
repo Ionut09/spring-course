@@ -2,18 +2,22 @@ package com.spring.gameloft.repository;
 
 import com.spring.gameloft.domain.Singer;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
+import java.util.stream.Stream;
 
-public interface SingerRepository {
-    Singer create(Singer singer);
+@Repository
+public interface SingerRepository extends JpaRepository<Singer, Long> {
+    //this interface has to be named like: <EntityName>Repository
 
-    void delete(Long id);
+    List<Singer> findAllByLastName(String lastName);
 
-    List<Singer> getAllSingers();
+    @Query("Select s from Singer s WHERE s.firstName = :firstName")
+    Stream<Singer> findAllCustom(@Param("firstName") String firstName);
 
-    Singer getSinger(Long id);
 
-    List<Singer> getSingersByName(String lastName);
-
-    Singer update(Long id, Singer singer);
 }

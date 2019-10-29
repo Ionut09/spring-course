@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Repository
-public class SingerRepositoryImpl implements SingerRepository {
+public class SingerRepositoryJDBCImpl implements SingerRepositoryJDBC {
 
     String getSingersSql = "SELECT * FROM singer";
     String getSingerSql = "SELECT * FROM singer WHERE id = ?";
