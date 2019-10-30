@@ -1,6 +1,5 @@
 package com.spring.gameloft.domain;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -9,16 +8,14 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.ScheduledExecutorService;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -28,6 +25,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+@NamedQuery(query = "Select s from Singer s WHERE s.firstName = :firstName", name = Singer.GET_SINGER_BY_FIRST_NAME)
 @Entity
 @ToString
 @Data
@@ -35,6 +33,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Singer implements Serializable {
 
+    public final static String GET_SINGER_BY_FIRST_NAME = "getSingerByFirstName";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

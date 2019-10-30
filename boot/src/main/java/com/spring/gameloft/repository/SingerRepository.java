@@ -3,6 +3,7 @@ package com.spring.gameloft.repository;
 import com.spring.gameloft.domain.Singer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,15 @@ public interface SingerRepository extends JpaRepository<Singer, Long> {
     List<Singer> findAllByLastName(String lastName);
 
     @Query("Select s from Singer s WHERE s.firstName = :firstName")
-    Stream<Singer> findAllCustom(@Param("firstName") String firstName);
+    Stream<Singer> findAllByFirstName(@Param("firstName") String firstName);
+
+    @Query(nativeQuery = true, value = "select * from singer")
+    List<Singer> getSingersWithNatvieQuery();
+
+    @Query("update Singer s set s.firstName = s.firstName + 'updated' where s.albums is not null")
+    @Modifying
+    int updateSinger();
+
 
 
 }

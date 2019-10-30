@@ -1,5 +1,7 @@
 package com.spring.gameloft.jpa;
 
+import com.spring.gameloft.domain.Singer;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +12,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
 @Service
@@ -193,7 +196,7 @@ public class QueryService {
             "p.type = 'Business' " +
             "WHERE p.employee.address.city = 'New York' AND p.type = 'Office'";
 
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.TRANSACTION)
     private EntityManager em;
 
     public void runQuery(String query, String queryString, PrintWriter out) throws IOException {
@@ -391,12 +394,22 @@ public class QueryService {
 
 
     public void executeAndPrintQuery(String queryString, PrintWriter out) {
+        if (queryString.toLowerCase().contains("update") || queryString.toLowerCase().contains("delete")) {
+            executeBulkQuery(queryString, out);
+            return;
+        }
         Query query = em.createQuery(queryString);
         printQueryResult(queryString, query.getResultList(), out);
     }
 
     public void executeBulkQuery(String queryString, PrintWriter out) {
-        em.createQuery(queryString).executeUpdate();
+        em.createQuery(queryString).executeUpdate(); //pt jpql
+
+        //EXEMPLE
+        em.createQuery(queryString).getResultList();
+        em.createNativeQuery("", Singer.class).getResultList(); //pt native query
+        em.createNamedQuery(Singer.GET_SINGER_BY_FIRST_NAME).getResultList();
+
         out.println("<b>JPQL: </b>" + queryString + " </br>Done.");
     }
 

@@ -1,6 +1,8 @@
 package com.spring.gameloft.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +13,13 @@ import javax.sql.DataSource;
 @Configuration
 public class DataConfig {
 
-    @Bean
+
+//    @Autowired
+//    @Qualifier("bibitza")
+//    private DataSource dataSource;
+
+    @Bean //("bibitza")
+    //@ConfigurationProperties("com.gameloft") //url, driver-class-name, username, password
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

@@ -3,7 +3,6 @@ package com.spring.gameloft.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -35,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           //.antMatchers(HttpMethod.GET, "/singers/**/albums").hasRole(USER_ROLE)
           // .antMatchers(HttpMethod.POST, "/singers/**").hasRole(ADMIN_ROLE)
 //           .antMatchers(HttpMethod.PUT, "/singers/**").hasRole(ADMIN_ROLE)
-//           .antMatchers(HttpMethod.DELETE, "/singers/**").hasRole(ADMIN_ROLE)
+           //.antMatchers("/singers/**").hasRole(ADMIN_ROLE)
            .anyRequest().authenticated()
            .and()
            .httpBasic();
